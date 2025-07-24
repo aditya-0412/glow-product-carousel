@@ -1,0 +1,24 @@
+{
+  "name": "glow-product",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/aditya-0412/glow-product-carousel#readme",
+  "bugs": {
+    "url": "https://github.com/aditya-0412/glow-product-carousel/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aditya-0412/glow-product-carousel.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.html",
+  "scripts": {
+    "deploy": "gh-pages -d .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
+}
