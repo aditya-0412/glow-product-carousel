@@ -182,6 +182,10 @@ body {
   .vehicle-btn span {
     font-size: 0.65rem;
   }
+  .carousel-arrow {
+    margin-right: -15px;
+    margin-left: -15px;
+  }
 }
 
 /* Mobile View */
@@ -243,7 +247,6 @@ body {
   color: red;
   border: none;
   font-size: 2rem;
-  padding: 0.5rem 1rem;
   cursor: pointer;
   z-index: 10;
 }
