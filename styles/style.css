@@ -10,26 +10,60 @@ body {
   margin: 50px auto;
   padding: 1rem;
 }
+.vehicle-container {
+  background-color: black;
+  max-width: 1200px;
+  margin: 50px auto;
+}
 .vehicle-selector {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
+  overflow-x: auto;
   gap: 0.5rem;
   margin-bottom: 1rem;
+  margin-top: 1rem;
+  scrollbar-width: none; /* Firefox */
 }
-.vehicle-selector button {
-  background-color: #ddd;
+.vehicle-selector::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.vehicle-btn {
+  flex: 0 0 auto;
+  background: transparent;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  text-align: center;
   cursor: pointer;
-  font-weight: bold;
-  flex: 1 1 auto;
-}
-.vehicle-selector button.active {
-  background-color: #d00;
+  font-family: "Arial Black", sans-serif;
+  font-size: 0.75rem;
   color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
 }
+
+.vehicle-btn img {
+  width: 170px;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.vehicle-btn span {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  font-style: italic;
+}
+
+.vehicle-btn.active span {
+  border-bottom: 2px solid red;
+}
+
+.vehicle-btn:hover img {
+  transform: scale(1.05);
+}
+
 .image-map-wrapper {
   position: relative;
   width: 100%;
@@ -73,7 +107,7 @@ body {
   display: none;
 }
 .card {
-  max-width: 160px;
+  max-width: 170px;
   flex: 0 0 auto;
   background: white;
   border: 4px solid #232323;
@@ -100,6 +134,13 @@ body {
 .card-body p {
   font-size: 0.875rem;
   color: #444;
+  font-style: italic;
+}
+
+@media (max-width: 950px) {
+  .vehicle-btn img {
+    width: 100px;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -113,6 +154,7 @@ body {
   }
 }
 
+/* Tablet View */
 @media (max-width: 768px) {
   .container {
     padding: 0.75rem;
@@ -134,8 +176,15 @@ body {
   .card-body p {
     font-size: 0.8rem;
   }
+  .vehicle-btn img {
+    width: 65px;
+  }
+  .vehicle-btn span {
+    font-size: 0.65rem;
+  }
 }
 
+/* Mobile View */
 @media (max-width: 480px) {
   .card {
     max-width: 120px;
@@ -150,5 +199,17 @@ body {
   }
   .card-body p {
     font-size: 0.75rem;
+  }
+  .vehicle-selector {
+    gap: 0;
+  }
+  .vehicle-btn img {
+    width: 37px;
+  }
+  .vehicle-btn {
+    font-size: 0.5rem;
+  }
+  .vehicle-btn span {
+    font-size: 0.5rem;
   }
 }
