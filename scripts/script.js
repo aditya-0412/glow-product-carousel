@@ -16,7 +16,6 @@ const vehicleImages = {
 };
 
 const vehicleData = {
-  // your entire vehicleData object remains unchanged...
   jeep: [
     {
       title:
