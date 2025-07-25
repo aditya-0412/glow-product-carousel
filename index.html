@@ -33,7 +33,17 @@
     </div>
     <div class="container">
       <div class="image-map-wrapper">
-        <img src="images/jeep.png" id="mainImage" alt="Vehicle Image" />
+        <div class="main-image-carousel">
+          <button class="carousel-arrow left">&#10094;</button>
+          <div class="carousel-images">
+            <img src="images/jeep.png" data-vehicle="jeep" />
+            <img src="images/truck.png" data-vehicle="truck" />
+            <img src="images/car.png" data-vehicle="car" />
+            <img src="images/motorcycle.png" data-vehicle="motorcycle" />
+            <img src="images/cybertruck.png" data-vehicle="cybertruck" />
+          </div>
+          <button class="carousel-arrow right">&#10095;</button>
+        </div>
         <div id="markerContainer"></div>
       </div>
 
