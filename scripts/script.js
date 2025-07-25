@@ -1,7 +1,11 @@
-const mainImage = document.getElementById("mainImage");
 const markerContainer = document.getElementById("markerContainer");
 const cardStack = document.getElementById("cardStack");
 const vehicleButtons = document.querySelectorAll(".vehicle-selector button");
+
+const carouselImages = document.querySelector(".carousel-images");
+const carouselSlides = document.querySelectorAll(".carousel-images img");
+const leftArrow = document.querySelector(".carousel-arrow.left");
+const rightArrow = document.querySelector(".carousel-arrow.right");
 
 const vehicleImages = {
   jeep: "images/jeep.png",
@@ -12,6 +16,7 @@ const vehicleImages = {
 };
 
 const vehicleData = {
+  // your entire vehicleData object remains unchanged...
   jeep: [
     {
       title:
@@ -214,12 +219,43 @@ const vehicleData = {
   ],
 };
 
+const vehicleKeys = Object.keys(vehicleImages);
+let currentSlide = 0;
+
+// Update main image view by fade
+function updateCarouselPosition(vehicle) {
+  // Start fade-out
+  carouselImages.classList.add("fade");
+
+  // Wait for fade-out
+  setTimeout(() => {
+    // Move the image
+    carouselImages.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+    // 👇 Render markers/cards before fade-in starts
+    renderVehicle(vehicle);
+
+    // Start fade-in
+    carouselImages.classList.remove("fade");
+  }, 200); // ~fade-out duration
+}
+
+// Change selected vehicle programmatically
+function switchVehicle(vehicle) {
+  vehicleButtons.forEach((btn) => {
+    btn.classList.toggle("active", btn.dataset.vehicle === vehicle);
+  });
+
+  // Let updateCarouselPosition handle rendering
+  updateCarouselPosition(vehicle);
+}
+
+// Render parts and markers
 function renderVehicle(vehicle) {
   markerContainer.innerHTML = "";
   cardStack.innerHTML = "";
-  mainImage.src = vehicleImages[vehicle];
-  const parts = vehicleData[vehicle];
 
+  const parts = vehicleData[vehicle];
   parts.forEach((part, index) => {
     const marker = document.createElement("div");
     marker.className = "marker";
@@ -241,7 +277,6 @@ function renderVehicle(vehicle) {
     `;
     cardStack.appendChild(card);
 
-    // Marker click => highlight marker and card
     marker.addEventListener("click", () => {
       document
         .querySelectorAll(".marker, .card")
@@ -251,38 +286,48 @@ function renderVehicle(vehicle) {
       card.scrollIntoView({ behavior: "smooth", inline: "center" });
     });
 
-    // Card hover => highlight corresponding marker
     card.addEventListener("mouseenter", () => {
       document
         .querySelectorAll(".marker, .card")
         .forEach((el) => el.classList.remove("active"));
-      card.classList.add("active");
       marker.classList.add("active");
+      card.classList.add("active");
     });
 
-    // Card click => navigate to another page (use actual product URL here)
     card.addEventListener("click", () => {
       window.location.href = "#";
     });
   });
 }
 
-// Init default vehicle
-renderVehicle("jeep");
-
-// Handle vehicle selection
+// Button click handlers
 vehicleButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    vehicleButtons.forEach((btn) => btn.classList.remove("active"));
-    button.classList.add("active");
-    renderVehicle(button.dataset.vehicle);
+    const vehicle = button.dataset.vehicle;
+    currentSlide = vehicleKeys.indexOf(vehicle);
+    switchVehicle(vehicle);
   });
 });
+
+// Arrow navigation
+leftArrow.addEventListener("click", () => {
+  currentSlide = (currentSlide - 1 + vehicleKeys.length) % vehicleKeys.length;
+  switchVehicle(vehicleKeys[currentSlide]);
+});
+
+rightArrow.addEventListener("click", () => {
+  currentSlide = (currentSlide + 1) % vehicleKeys.length;
+  switchVehicle(vehicleKeys[currentSlide]);
+});
+
+// Init
+switchVehicle("jeep");
 
 // Drag-to-scroll on card carousel
 let isDown = false,
   startX,
   scrollLeft;
+
 cardStack.addEventListener("mousedown", (e) => {
   isDown = true;
   startX = e.pageX - cardStack.offsetLeft;
@@ -299,7 +344,7 @@ cardStack.addEventListener("mousemove", (e) => {
   cardStack.scrollLeft = scrollLeft - walk;
 });
 
-// Remove focus when clicked outside area
+// Deselect on outside click
 document.addEventListener("click", (e) => {
   const isMarker = e.target.closest(".marker");
   const isCard = e.target.closest(".card");
