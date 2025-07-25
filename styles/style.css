@@ -152,6 +152,9 @@ body {
     height: 2.2rem;
     font-size: 1rem;
   }
+  .carousel-arrow {
+    display: none;
+  }
 }
 
 /* Tablet View */
@@ -181,10 +184,6 @@ body {
   }
   .vehicle-btn span {
     font-size: 0.65rem;
-  }
-  .carousel-arrow {
-    margin-right: -15px;
-    margin-left: -15px;
   }
 }
 
